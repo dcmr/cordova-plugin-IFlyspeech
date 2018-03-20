@@ -4,8 +4,8 @@ var xunfeiListenSpeaking = {
 	startListen:function (success,error,isShowDialog,isShowPunc){
 		exec(success,error,"XunfeiListenSpeaking","startListen",[isShowDialog,isShowPunc]);
 	},
-	stopListen:function(){
-		exec(null,null,"XunfeiListenSpeaking","stopListen",[]);
+	stopListen:function(success,error){
+		exec(success,error,"XunfeiListenSpeaking","stopListen",[]);
 	},
 	startSpeak:function(success,error,speakMessage){
 		exec(success,error,"XunfeiListenSpeaking","startSpeak",[speakMessage]);
