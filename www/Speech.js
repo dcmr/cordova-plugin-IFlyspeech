@@ -84,18 +84,21 @@ Speech.prototype = {
         exec(callback, callback, 'Speech', 'login', []);
 
         function parseResults( e ) {
-            var data = JSON.parse( e.results );
-            if(data.sn == 1) speech.msg = "";
-            var ws = data.ws;
-            for( var i=0; i<ws.length; i++ ) {
-                var word = ws[i].cw[0].w;
-                speech.msg += word;
-            }
-            if(data.ls == true) {
-                console.log( speech.msg );
-                if(typeof speech.onspeakcallback === 'function') {
-                    speech.onspeakcallback( speech.msg );
+            try {
+                var data = JSON.parse( e.results );
+                if(data.sn == 1) speech.msg = "";
+                var ws = data.ws;
+                for( var i=0; i<ws.length; i++ ) {
+                    var word = ws[i].cw[0].w;
+                    speech.msg += word;
                 }
+                if(data.ls == true) {
+                    if(typeof speech.onspeakcallback === 'function') {
+                        speech.onspeakcallback( speech.msg );
+                    }
+                }
+            } catch (error) {
+                speech.onspeakcallback( '' );
             }
         }
         this.addEventListener('SpeechResults', parseResults );
